@@ -76,7 +76,8 @@
         </div>
     </header>
 
-
+<div class="bcc">
+    
     <script>
         // Set up the scene
         const scene = new THREE.Scene();
@@ -88,6 +89,7 @@
         // Add a spinning globe
         const geometry = new THREE.SphereGeometry(1, 32, 32);
         const textureLoader = new THREE.TextureLoader();
+      
         const texture = textureLoader.load('https://threejs.org/examples/textures/planets/earth_atmos_2048.jpg');
         const material = new THREE.MeshBasicMaterial({ map: texture });
         const globe = new THREE.Mesh(geometry, material);
@@ -135,9 +137,15 @@
         animate();
       </script>
       </div>
+
+      <style>
+        .bcc{
+            background-image: url("images/maxresdefault.jpg");
+        }
+      </style>
     <!-- end header -->
     <!-- start slider section -->
-    <div id="top_section" class=" banner_main">
+    <div id="top_section" class="banner_main">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
