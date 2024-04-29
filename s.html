@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rotating Globe</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden; /* Hide scrollbar */
+      background: url('images/maxresdefault.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
+    canvas {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script>
+   // Set background image dynamically using JavaScript
+document.body.style.background = "url('images/maxresdefault.jpg') ";
+document.body.style.backgroundSize = "cover";
+
+// Set up the scene
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer();
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
+
+// Add a spinning globe
+const geometry = new THREE.SphereGeometry(1, 32, 32);
+const textureLoader = new THREE.TextureLoader();
+
+const texture = textureLoader.load('https://threejs.org/examples/textures/planets/earth_atmos_2048.jpg');
+const material = new THREE.MeshBasicMaterial({ map: texture });
+const globe = new THREE.Mesh(geometry, material);
+scene.add(globe);
+
+// Define investment data (sample)
+const investments = [
+  { value: 100, latitude: 37.7749, longitude: -122.4194 },
+  { value: 200, latitude: 40.7128, longitude: -74.0060 },
+  // Add more investment data as needed
+];
+
+// Add data visualization points with investment information
+const points = [];
+const numPoints = 1000;
+const pointGeometry = new THREE.SphereGeometry(0.01);
+const pointMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+const labelCanvas = document.createElement('canvas');
+const labelContext = labelCanvas.getContext('2d');
+labelContext.font = '12px Arial';
+for (const investment of investments) {
+  const { value, latitude, longitude } = investment;
+  const point = new THREE.Mesh(pointGeometry, pointMaterial);
+  const phi = (90 - latitude) * (Math.PI / 180);
+  const theta = (180 - longitude) * (Math.PI / 180);
+  const radius = 0.9;
+  point.position.set(
+    Math.sin(phi) * Math.cos(theta) * radius,
+    Math.cos(phi) * radius,
+    Math.sin(phi) * Math.sin(theta) * radius
+  );
+  scene.add(point);
+  points.push(point);
+
+  // Add investment label
+  const label = value + ' USD';
+  labelContext.clearRect(0, 0, labelCanvas.width, labelCanvas.height);
+  labelCanvas.width = labelContext.measureText(label).width;
+  labelCanvas.height = 20;
+  labelContext.fillText(label, 0, 12);
+  const labelTexture = new THREE.CanvasTexture(labelCanvas);
+  const labelSpriteMaterial = new THREE.SpriteMaterial({ map: labelTexture });
+  const labelSprite = new THREE.Sprite(labelSpriteMaterial);
+  labelSprite.position.copy(point.position).multiplyScalar(1.1);
+  scene.add(labelSprite);
+}
+
+camera.position.z = 3;
+
+// Define an animation loop
+const animate = function () {
+  requestAnimationFrame(animate);
+
+  // Rotate the globe
+  globe.rotation.y += 0.01;
+
+  renderer.render(scene, camera);
+};
+
+animate();
+
+  </script>
+</body>
+</html>
