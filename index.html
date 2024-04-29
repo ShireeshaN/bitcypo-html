@@ -7,6 +7,8 @@
     <!-- mobile metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
     <!-- site metas -->
     <title>bitcypo</title>
     <meta name="keywords" content="">
@@ -37,8 +39,7 @@
         <a class="active" href="index.html">Home</a>
         <a href="about.html">About</a>
         <a href="services.html">Services</a>
-        <a href="testimonial.html">Testimonial</a>
-        <a href="works.html">Works</a>
+        
         <a href="contact.html">Contact</a>
     </div>
     <!-- header -->
@@ -92,9 +93,65 @@
                                     <div class="carousel-caption relative">
                                         <div class="row d_flex">
                                             <div class="col-md-6">
-                                                <div class="con_img">
-                                                    <figure><img class="img_responsive" src="images/top_img.png" alt="#" /></figure>
-                                                </div>
+                                                
+                                                    <script>
+                                                        // Set up the scene
+                                                        const scene = new THREE.Scene();
+                                                        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+                                                        const renderer = new THREE.WebGLRenderer();
+                                                        renderer.setSize(window.innerWidth, window.innerHeight);
+                                                        document.body.appendChild(renderer.domElement);
+                                                    
+                                                        // Add a spinning globe
+                                                        const geometry = new THREE.SphereGeometry(1, 32, 32);
+                                                        const textureLoader = new THREE.TextureLoader();
+                                                        const texture = textureLoader.load('https://threejs.org/examples/textures/planets/earth_atmos_2048.jpg');
+                                                        const material = new THREE.MeshBasicMaterial({ map: texture });
+                                                        const globe = new THREE.Mesh(geometry, material);
+                                                        scene.add(globe);
+                                                    
+                                                        // Add data visualization points
+                                                        const points = [];
+                                                        const numPoints = 1000;
+                                                        const pointGeometry = new THREE.SphereGeometry(0.01);
+                                                        const pointMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+                                                        for (let i = 0; i < numPoints; i++) {
+                                                          const point = new THREE.Mesh(pointGeometry, pointMaterial);
+                                                          const theta = Math.random() * Math.PI * 2;
+                                                          const phi = Math.random() * Math.PI;
+                                                          const radius = 0.9;
+                                                          point.position.set(
+                                                            Math.cos(theta) * Math.sin(phi) * radius,
+                                                            Math.cos(phi) * radius,
+                                                            Math.sin(theta) * Math.sin(phi) * radius
+                                                          );
+                                                          scene.add(point);
+                                                          points.push(point);
+                                                        }
+                                                    
+                                                        camera.position.z = 3;
+                                                    
+                                                        // Define an animation loop
+                                                        const animate = function () {
+                                                          requestAnimationFrame(animate);
+                                                    
+                                                          // Rotate the globe
+                                                          globe.rotation.y += 0.01;
+                                                    
+                                                          // Update data visualization points
+                                                          points.forEach(point => {
+                                                            const noise = Math.random() * 0.01;
+                                                            point.position.x += noise;
+                                                            point.position.y += noise;
+                                                            point.position.z += noise;
+                                                          });
+                                                    
+                                                          renderer.render(scene, camera);
+                                                        };
+                                                    
+                                                        animate();
+                                                      </script>
+                                                
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="bluid">
@@ -108,7 +165,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="carousel-item">
+                            <!-- <div class="carousel-item">
                                 <div class="container-fluid">
                                     <div class="carousel-caption relative">
                                         <div class="row d_flex">
@@ -150,7 +207,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
                             <i class="fa fa-angle-left" aria-hidden="true"></i>
                             <span class="sr-only">Previous</span>
