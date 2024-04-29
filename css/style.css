@@ -952,3 +952,88 @@ ul.email li i {
 .inner_page .contact {
      margin-top: 90px;
 }
+
+
+
+
+.tabs-section .nav-pills .nav-link.active {
+     border-top-color: #1A237E;
+     background-color: #fff;
+     color: #1A237E;
+ }
+ .tabs-section .nav-pills .nav-link {
+     background-color: #f2f2f2;
+     padding: 12px 40px;
+     border-right: 1px solid #eee;
+     border-top: 2px solid transparent;
+     border-radius: 0;
+     position: relative;
+     z-index: 5;
+ }
+ .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+     color: #fff;
+     background-color: #007bff;
+ }
+ .nav-pills .nav-link {
+     border-radius: .25rem;
+ }
+ .nav-link {
+     display: block;
+     padding: .5rem 1rem;
+ }
+ span, a {
+     display: inline-block;
+     text-decoration: none;
+     color: inherit;
+ }
+ a {
+     color: #007bff;
+     text-decoration: none;
+     background-color: transparent;
+     -webkit-text-decoration-skip: objects;
+ }
+ * {
+     margin: 0;
+     padding: 0;
+     -webkit-box-sizing: border-box;
+     box-sizing: border-box;
+     outline: none;
+     list-style: none;
+     word-wrap: break-word;
+ }
+ *, ::after, ::before {
+     box-sizing: border-box;
+ }
+ user agent stylesheet
+ a:-webkit-any-link {
+     color: -webkit-link;
+     cursor: pointer;
+     text-decoration: underline;
+ }
+ user agent stylesheet
+ li {
+     text-align: -webkit-match-parent;
+ }
+ .nav {
+     display: -webkit-box;
+     display: -ms-flexbox;
+     display: flex;
+     -ms-flex-wrap: wrap;
+     flex-wrap: wrap;
+     padding-left: 0;
+     margin-bottom: 0;
+     list-style: none;
+ }
+ user agent stylesheet
+ ul {
+     list-style-type: disc;
+ }
+ 
+ 
+ *, ::after, ::before {
+     box-sizing: border-box;
+ }
+ 
+ *, ::after, ::before {
+     box-sizing: border-box;
+ }
