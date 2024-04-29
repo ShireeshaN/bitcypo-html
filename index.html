@@ -76,108 +76,11 @@
         </div>
     </header>
 
+
 <html>
- <div class="d-flex flex-row justify-content-center">
-    <div>
-
-    
-    <script>
-       
-        // Set up the scene
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ alpha: true });
-        const rendererWidth = window.innerWidth * 0.8; // Adjust the fraction as needed
-
-        const rendererHeight = window.innerHeight;
-renderer.setSize(rendererWidth, rendererHeight);
-document.body.appendChild(renderer.domElement);
-    
-        // Add a spinning globe
-        const geometry = new THREE.SphereGeometry(1, 32, 32);
-        const textureLoader = new THREE.TextureLoader();
-      
-        const texture = textureLoader.load('https://threejs.org/examples/textures/planets/earth_atmos_2048.jpg');
-        const material = new THREE.MeshBasicMaterial({ map: texture });
-        const globe = new THREE.Mesh(geometry, material);
-        scene.add(globe);
-    
-        // Add data visualization points
-        const points = [];
-        const numPoints = 1000;
-        const pointGeometry = new THREE.SphereGeometry(0.01);
-        const pointMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
-        for (let i = 0; i < numPoints; i++) {
-          const point = new THREE.Mesh(pointGeometry, pointMaterial);
-          const theta = Math.random() * Math.PI * 2;
-          const phi = Math.random() * Math.PI;
-          const radius = 0.9;
-          point.position.set(
-            Math.cos(theta) * Math.sin(phi) * radius,
-            Math.cos(phi) * radius,
-            Math.sin(theta) * Math.sin(phi) * radius
-          );
-          scene.add(point);
-          points.push(point);
-        }
-    
-        camera.position.z = 3;
-    
-        // Define an animation loop
-        const animate = function () {
-          requestAnimationFrame(animate);
-    
-          // Rotate the globe
-          globe.rotation.y += 0.01;
-
-          
-    
-          // Update data visualization points
-          points.forEach(point => {
-            const noise = Math.random() * 0.01;
-            point.position.x += noise;
-            point.position.y += noise;
-            point.position.z += noise;
-          });
-    
-          renderer.render(scene, camera);
-        };
-    
-        animate();
-      </script>
-
-    
-  
-      <style>
-        .globe{
-            width: 100%;
-            background-color: black;
-        }
-        canvas{
-
-            width:900px !important;
-            height:650px !important;
-            margin-right: 20px;
-           
-        }
-        @media(max-width:992px){
-            canvas{
-
-width: 100% !important;
-height:auto !important;
-
-}
-        }
-
-      </style>
-</div>
-<div>
-    <h1>vcghxvchb</h1>
-</div>
-</div>
     <!-- end header -->
     <!-- start slider section -->
-    <!-- <div id="top_section" class="banner_main">
+    <div id="top_section" class="banner_main">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
@@ -208,8 +111,8 @@ height:auto !important;
                                         </div>
                                     </div>
                                 </div>
-                            </div> -->
-                            <!-- <div class="carousel-item">
+                            </div>
+                             <div class="carousel-item">
                                 <div class="container-fluid">
                                     <div class="carousel-caption relative">
                                         <div class="row d_flex">
@@ -251,8 +154,8 @@ height:auto !important;
                                     </div>
                                 </div>
                             </div>
-                        </div> -->
-                        <!-- <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+                        </div>
+                         <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
                             <i class="fa fa-angle-left" aria-hidden="true"></i>
                             <span class="sr-only">Previous</span>
                         </a>
@@ -264,7 +167,7 @@ height:auto !important;
                 </div>
             </div>
         </div>
-    </div> -->
+    </div> 
     <!-- end slider section -->
     <!-- wallet -->
     <div class="wallet">

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Three.js Globe Visualization</title>
+    <style>
+       
+
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        // Set up the scene
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true });
+        const rendererWidth = window.innerWidth * 0.8; // Adjust the fraction as needed
+        const rendererHeight = window.innerHeight;
+        renderer.setSize(rendererWidth, rendererHeight);
+        document.body.appendChild(renderer.domElement);
+        
+        // Add a spinning globe
+        const geometry = new THREE.SphereGeometry(1, 32, 32);
+        const textureLoader = new THREE.TextureLoader();
+        const texture = textureLoader.load('https://threejs.org/examples/textures/planets/earth_atmos_2048.jpg');
+        const material = new THREE.MeshBasicMaterial({ map: texture });
+        const globe = new THREE.Mesh(geometry, material);
+        scene.add(globe);
+        
+        // Add data visualization points
+        const points = [];
+        const numPoints = 1000;
+        const pointGeometry = new THREE.SphereGeometry(0.01);
+        const pointMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+        for (let i = 0; i < numPoints; i++) {
+          const point = new THREE.Mesh(pointGeometry, pointMaterial);
+          const theta = Math.random() * Math.PI * 2;
+          const phi = Math.random() * Math.PI;
+          const radius = 0.9;
+          point.position.set(
+            Math.cos(theta) * Math.sin(phi) * radius,
+            Math.cos(phi) * radius,
+            Math.sin(theta) * Math.sin(phi) * radius
+          );
+          scene.add(point);
+          points.push(point);
+        }
+        
+        camera.position.z = 3;
+        
+        // Define an animation loop
+        const animate = function () {
+          requestAnimationFrame(animate);
+          
+          // Rotate the globe
+          globe.rotation.y += 0.01;
+          
+          // Update data visualization points
+          points.forEach(point => {
+            const noise = Math.random() * 0.01;
+            point.position.x += noise;
+            point.position.y += noise;
+            point.position.z += noise;
+          });
+          
+          renderer.render(scene, camera);
+        };
+        
+        animate();
+    </script>
+</body>
+</html>
